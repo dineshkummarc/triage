@@ -1,7 +1,7 @@
 import os
 from sys import argv
 import logging
-from subprocess import Queue, Process
+from multiprocessing import Queue, Process
 
 import zmq
 import msgpack
