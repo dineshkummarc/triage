@@ -34,11 +34,9 @@ class MongoConsumer(Process):
     def run(self):
         import mongoengine
         from models import Error
+        logging.info('Process %d connecting to mongo at: mongodb://' % os.getpid() + settings['mongodb.host'] + '/' + settings['mongodb.db_name'])
+        mongoengine.connect(settings['mongodb.db_name'], host=settings['mongodb.host'])
         while True:
-            # mongo
-            logging.info('Process %d connecting to mongo at: mongodb://' % os.getpid() + settings['mongodb.host'] + '/' + settings['mongodb.db_name'])
-            mongoengine.connect(settings['mongodb.db_name'], host=settings['mongodb.host'])
-
             msg = self.queue.get()
             if msg == SENTINEL:
                 break
